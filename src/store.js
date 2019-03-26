@@ -37,7 +37,7 @@ const createData = (data, action) => ({
 
 // Get infos
 store.dispatch(
-  fetchOffers('MOVIES_TITLE')
+  fetchOffers('MOVIES')
 ).then(() => {
   console.log('Done!');
 });
