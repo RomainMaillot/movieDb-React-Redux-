@@ -13,53 +13,29 @@ const Button = styled.button`
   outline: none;
 `;
 
-const Cards = styled.div`
+const Cards = styled.ul`
   width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding: 0;
 `
 
 class App extends Component {
   state = {
     showComponent: false,
-    showComponent2: false
+    cards: [],
+    numbers: [1,2,4,5,6,7,8,9,10]
   };
-
-  onClick = () => {
-    // let infos = store.getState()
-    // let title = infos.title
-    // let year = infos.date
-    // let rate = infos.rate
-    // let coverLink = 'https://image.tmdb.org/t/p/original' + infos.coverLink
-
-    // this.setState({
-    //     info: title,
-    //     year: year,
-    //     rate: rate,
-    //     cover: coverLink
-    //   });
-    this.setState({
-      showComponent: true
-    })
-  };
-
-  onClick2 = () => {
-    store.dispatch(
-      fetchOffers('MOVIES', 106)
-    ).then(() => {
-      this.setState({
-        showComponent2: true
-      })
-    });
-  };
-
   
   render() {
     return (
       <Provider className="App" store={store}>
         <Cards className="App-header">
+          {this.state.numbers.map((number) => (
+            <CardComponent key={number} number={number} />
+          ))}
           {this.state.showComponent ? <CardComponent /> : null}
           {this.state.showComponent2 ? <CardComponent /> : null}
           {/* <Card>
@@ -71,8 +47,6 @@ class App extends Component {
             </CardFooter>
           </Card> */}
         </Cards>
-        <Button onClick={() => this.onClick()}>START</Button>
-        <Button onClick={() => this.onClick2()}>NEW</Button>
       </Provider>
     );
   }

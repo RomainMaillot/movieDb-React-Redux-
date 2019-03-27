@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from "styled-components";
 import store from '../store';
+import { fetchOffers } from '../store';
 
 const Card = styled.div`
   width: 21%;
@@ -38,11 +39,24 @@ const CardFooter = styled.h2`
 
 class CardComponent extends Component {
     state = {
-        info: store.getState().title,
-        year: store.getState().date,
-        rate: store.getState().rate,
-        cover: 'https://image.tmdb.org/t/p/original' + store.getState().coverLink
+        info: "",
+        year: "",
+        rate: "",
+        cover: ""
       };
+
+      componentDidMount() {
+        store.dispatch(
+          fetchOffers('MOVIES', this.props.number)
+        ).then(() => {
+            this.setState({
+                info: store.getState().title,
+                year: store.getState().date,
+                rate: store.getState().rate,
+                cover: store.getState().coverLink
+                })
+        });
+      }
 
     render() {
       return (

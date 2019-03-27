@@ -22,8 +22,7 @@ export function fetchOffers(actionName, key) {
     
     return request.then(
       response => dispatch(createData(response.data, actionName)),
-      err => dispatch(err)
-    );
+      err => dispatch(createError('ERROR')))
   }
 }
 
@@ -34,6 +33,10 @@ const createData = (data, action) => ({
     title: data.original_title
   }
 });
+
+const createError = (action) => ({
+  type: action
+})
 
 // Get infos
 store.dispatch(

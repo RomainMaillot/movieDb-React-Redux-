@@ -24,7 +24,14 @@
           title: action.payload.data.title,
           date: action.payload.data.release_date,
           rate: action.payload.data.vote_average,
-          coverLink: action.payload.data.poster_path
+          coverLink: 'https://image.tmdb.org/t/p/original' + action.payload.data.poster_path
+        }
+      case 'ERROR':
+        return {
+          title: 'No info',
+          date: 'No info',
+          rate: 'No info',
+          coverLink: '#'
         }
       default:
         return state;
