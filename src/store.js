@@ -11,12 +11,12 @@ const store = createStore(
 );
 
 // Function to fetch api
-export function fetchOffers(actionName) {
+export function fetchOffers(actionName, key) {
   return function action(dispatch) {
 
     const request = axios({
       method: 'GET',
-      url: `https://api.themoviedb.org/3/movie/105?api_key=14d9718ae3a62634e2344c0596986a14`,
+      url: `https://api.themoviedb.org/3/movie/${key}?api_key=14d9718ae3a62634e2344c0596986a14`,
       headers: []
     });
     
@@ -37,7 +37,7 @@ const createData = (data, action) => ({
 
 // Get infos
 store.dispatch(
-  fetchOffers('MOVIES')
+  fetchOffers('MOVIES', 105)
 ).then(() => {
   console.log('Done!');
 });
