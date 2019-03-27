@@ -4,13 +4,16 @@ import store from '../store';
 import { fetchOffers } from '../store';
 
 const Card = styled.div`
-  width: 21%;
+  width: 23%;
   background-color: white;
   box-shadow: 0px 2px 8px 0px #333333;
   margin-bottom: 5vh;
   color: #333333;
   .cover img {
     width: 100%;
+  }
+  &.hidden {
+    display: none;
   }
 `
 
@@ -42,25 +45,37 @@ class CardComponent extends Component {
         info: "",
         year: "",
         rate: "",
-        cover: ""
+        cover: "",
+        visible: "visible"
       };
 
-      componentDidMount() {
+    componentDidMount() {
         store.dispatch(
-          fetchOffers('MOVIES', this.props.number)
+            fetchOffers('MOVIES', this.props.number)
         ).then(() => {
             this.setState({
                 info: store.getState().title,
                 year: store.getState().date,
                 rate: store.getState().rate,
                 cover: store.getState().coverLink
+            })
+            if (this.state.info==="No info") {
+                this.setState({
+                    visible: "hidden"
                 })
+            }
+            else if(this.state.cover === 'https://image.tmdb.org/t/p/originalnull')
+            {
+                this.setState({
+                    cover: 'https://via.placeholder.com/547x821'
+                })
+            }
         });
-      }
+    }
 
     render() {
       return (
-        <Card>
+        <Card className={this.state.visible}>
             <div className="cover"><img src={this.state.cover} alt="cover of the movie"/></div>
             <Title>{this.state.info}</Title>
             <CardFooter>

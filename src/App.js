@@ -5,13 +5,6 @@ import "./App.css";
 import { Provider } from 'react-redux';
 import store from './store';
 import CardComponent from './components/Card'
-import { fetchOffers } from './store'
-
-const Button = styled.button`
-  background-color: #74b9ff;
-  color: white;
-  outline: none;
-`;
 
 const Cards = styled.ul`
   width: 100%;
@@ -26,8 +19,28 @@ class App extends Component {
   state = {
     showComponent: false,
     cards: [],
-    numbers: [1,2,4,5,6,7,8,9,10]
+    numbers: []
   };
+
+  componentDidMount() {
+    let i = 0
+    const fetchMovies = setInterval(() => {
+      let max = i+10
+      let numbers = [...this.state.numbers]
+      while(numbers.length < max)
+      {
+        i++
+        numbers.push(i)
+      }
+      this.setState({
+        numbers: numbers
+      })
+      if(i===100)
+      {
+        clearInterval(fetchMovies)
+      }
+    }, 2000);
+  }
   
   render() {
     return (
