@@ -21,16 +21,16 @@ export function fetchOffers(actionName, key) {
     });
     
     return request.then(
-      response => dispatch(createData(response.data, actionName)),
-      err => dispatch(createError('ERROR')))
+      response => dispatch(createData(response.data, actionName)))
+      .catch(err => dispatch(createError('ERROR')))
   }
 }
 
+// Functions to handle response or error
 const createData = (data, action) => ({
   type: action,
   payload: {
-    data: data,
-    title: data.original_title
+    data: data
   }
 });
 
